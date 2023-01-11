@@ -15,15 +15,12 @@ class AuthService {
    */
   async authenticate(identity, password) {
     const user = await this.userRepository.getUserForAuth(identity)
-    console.log(user)
+
     if (!user) throw new Error('Credentials are not valid')
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
 
     if (!isPasswordValid) throw new Error('Credentials are not valid')
-
-    delete user.password
-    delete user.email
 
     const jwt = new Jwt(user)
 
@@ -40,7 +37,7 @@ class AuthService {
   async validateToken(token) {
     const { payload } = await Jwt.verify(token, config.jwtSecret)
     const user = await this._validateUser(payload)
-    if (!user) throw new Error('Token valid but the user does not exits')
+    if (!user) throw new Error('Token invalid!')
 
     return payload
   }
@@ -51,32 +48,35 @@ class AuthService {
     return token
   }
 
-
   /**
-   * Fecha de creación 
-   * Fecha de vencimiento => cantMillisec =  fechaDeCreacion + FechaDeVencimiento
-   * Condicion para refrescar el token -> que solo falten 2 horas o menos para crear otro token
+   * --------------------------------------------- Pseudocodigo ---------------------------------------------
+   * Proceso: Comprobar si el token venció -> Es una Función que recibe como parámetro el payload del token
+   *    DEFINIR diaActual COMO Date.now() -> Devuelve el dia actual como Universal Coordinated Time
+   *    DEFINIR diaVencimiento COMO Number -> El numero es en timestamp
+   *    DEFINIR data COMO objeto -> objeto   
    * 
+   *    SI diaActual < diaVencimiento ENTONCES:
+   *      data.message = "Your toker is still valid!" 
+   *    SINO 
+   *      DEFINIR tokenCreado = crearToken(param) 
+   *      data.message = "Token updated"
+   *      data.toke = tokenCreado
+   *    FIN SI
    * 
+   *    RETORNAR data
    */
   async refreshToken(payload) {
-    const twoHours = 720000 // Millisecons -> (1h -> 360S * 2) * 1000 Millisecons
-    const today = Date.now() // Actual Day
+    const now = Date.now() // Actual Day
     const expires = payload.iat + 172800000 //] 48 hours
-    const result = today - expires
-
     const data = {}
 
-    if (result > twoHours || result < 0) {
-      data.message = 'Token is still valid!'
-      data.status = 200
+    if (now < expires) {
+      data.message = "Your token is still valid!"
     } else {
-      const token = await this._createToken(payload)
-      data.status = 201
+      const tokenUpdated = await this._createToken(payload)
       data.message = "Token updated!"
-      data.token = token
+      data.token = tokenUpdated
     }
-
     return data
   }
 

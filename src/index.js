@@ -1,5 +1,5 @@
 import { httpServer } from './config/http.js'
-import { config } from './config/dotenv.js'
+import { config } from '#Dotenv'
 const PORT = config.port
 function bootstrap() {
   try {

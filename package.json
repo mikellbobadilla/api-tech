@@ -27,13 +27,10 @@
   "imports": {
     "#Config/*": "./src/config/*",
     "#Models/*": "./src/models/*",
-    "#AuthRouter": "./src/auth/routes/router.js",
-    "#UserRouter": "./src/user/routes/router.js",
-    "#PostRouter": "./src/post/routes/router.js",
-    "#CommentRouter": "./src/comment/routes/router.js",
-    "#LikeRouter": "./src/like/routes/router.js",
+    "#AuthRouter": "./src/api/auth/routes/router.js",
+    "#UserRouter": "./src/api/user/routes/router.js",
     "#Auth/*": "./src/auth/*",
-    "#User/*": "./src/user/*",
+    "#User/*": "./src/api/user/*",
     "#Jwt": "./src/jwt/jwt.js",
     "#Dotenv": "./src/config/dotenv.js"
   }
