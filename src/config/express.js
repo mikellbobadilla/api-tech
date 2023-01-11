@@ -2,8 +2,8 @@ import express from 'express'
 import logger from 'morgan'
 
 // Routes
-import userRoute from '../user/routes/route.js'
-
+import userRouter from '#UserRouter'
+import authRouter from '#AuthRouter'
 
 // Exeptions
 import exeption from '../exeptions/exeption.js'
@@ -15,7 +15,8 @@ const app = express()
 app.use(express.json())
 app.use(logger('dev'))
 
-app.use('/v1/api', userRoute)
+app.use('/v1/api', userRouter)
+app.use('/v1/api', authRouter)
 
 
 // Handle Errors

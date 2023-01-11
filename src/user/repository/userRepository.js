@@ -1,4 +1,5 @@
-import User from '../../models/User.js'
+import User from '#Models/User.js'
+import { Op } from 'sequelize'
 
 class UserRepository {
   async findAll() {
@@ -39,6 +40,19 @@ class UserRepository {
       }
     })
     return userDeleted
+  }
+
+  async getUserForAuth(identity) {
+    const user = await User.findOne({
+      attributes: ['id', 'username', 'email', 'password', 'role'],
+      where: {
+        [Op.or]: [
+          { username: identity },
+          { email: identity }
+        ]
+      }
+    })
+    return user
   }
 }
 

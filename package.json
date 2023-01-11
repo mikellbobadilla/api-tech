@@ -16,11 +16,25 @@
     "bcrypt": "5.1.0",
     "dotenv": "16.0.3",
     "express": "4.18.2",
+    "jose": "^4.11.2",
     "morgan": "1.10.0",
     "mysql2": "2.3.3",
     "sequelize": "6.28.0"
   },
   "devDependencies": {
     "nodemon": "2.0.20"
+  },
+  "imports": {
+    "#Config/*": "./src/config/*",
+    "#Models/*": "./src/models/*",
+    "#AuthRouter": "./src/auth/routes/router.js",
+    "#UserRouter": "./src/user/routes/router.js",
+    "#PostRouter": "./src/post/routes/router.js",
+    "#CommentRouter": "./src/comment/routes/router.js",
+    "#LikeRouter": "./src/like/routes/router.js",
+    "#Auth/*": "./src/auth/*",
+    "#User/*": "./src/user/*",
+    "#Jwt": "./src/jwt/jwt.js",
+    "#Dotenv": "./src/config/dotenv.js"
   }
 }
