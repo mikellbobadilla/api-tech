@@ -7,8 +7,8 @@ class UserService {
     this.userRepository = new UserRepository()
   }
 
-  async getAll() {
-    const users = this.userRepository.findAll()
+  async findAll() {
+    const users = await this.userRepository.findAll()
     return users
   }
 
@@ -16,7 +16,6 @@ class UserService {
     const passEncoded = await bcrypt.hash(user.password, 10)
     user.password = passEncoded
     user.username = user.username.toLowerCase()
-    console.log(user)
     const newUser = await this.userRepository.create(user)
     return newUser
   }

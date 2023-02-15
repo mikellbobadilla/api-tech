@@ -20,7 +20,12 @@ class Jwt {
 
     return jwt
   }
-
+  /**
+   * Verify if the token is valid
+   * @param {String} token 
+   * @param {String} secret 
+   * @returns return information stored inside the token
+   */
   static async verify(token, secret) {
     const result = await jwtVerify(token, textToEncode.encode(secret))
     return result

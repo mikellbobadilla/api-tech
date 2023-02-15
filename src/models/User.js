@@ -82,10 +82,6 @@ User.init({
     validate: {
       notEmpty: {
         msg: 'Password is required'
-      },
-      min: {
-        args: 8,
-        msg: 'Password must be over 8 characters'
       }
     }
   },

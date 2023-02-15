@@ -1,3 +1,4 @@
+import { request, response } from 'express'
 import UserService from '../service/userService.js'
 
 class UserController {
@@ -6,14 +7,14 @@ class UserController {
     this.userService = new UserService()
   }
 
-  async getAll(req, res, next) {
+  async getAll(req = request, res = response, next) {
     try {
-      const users = await this.userService.getAll()
+      const users = await this.userService.findAll()
       return res
         .status(200)
         .json(users)
     } catch (err) {
-      next(err)
+      return next(err)
     }
   }
 
@@ -26,6 +27,7 @@ class UserController {
         .json(newUser)
 
     } catch (err) {
+      err.message = err.errors[0].message
       err.status = 400
       return next(err)
     }
@@ -41,7 +43,7 @@ class UserController {
 
     } catch (err) {
       err.status = 404
-      next(err)
+      return next(err)
     }
   }
 
@@ -50,6 +52,7 @@ class UserController {
       const { username } = req.params
       const user = req.body
 
+      // TODO: use middleware to validate if user exits
       await this.userService.getUser(username)
 
       await this.userService.update(username, user)
@@ -59,7 +62,7 @@ class UserController {
 
     } catch (err) {
       err.status = 404
-      next(err)
+      return next(err)
     }
   }
 
@@ -67,7 +70,8 @@ class UserController {
     try {
       const { username } = req.params
 
-      await this.userService.getUser(username)
+      // TODO: use middleware to validate if user exits
+      // await this.userService.getUser(username)
 
       await this.userService.delete(username)
       return res
@@ -76,7 +80,7 @@ class UserController {
 
     } catch (err) {
       err.status = 404
-      next(err)
+      return next(err)
     }
   }
 }

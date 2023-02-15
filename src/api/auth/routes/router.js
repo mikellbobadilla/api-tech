@@ -1,20 +1,20 @@
 import { Router } from 'express'
 import AuthController from '../controller/authController.js'
-const authController = new AuthController()
+const authInstance = new AuthController()
 
 const router = Router()
 
 /**
- * Routes for auth
+ * Endpoints for auth
  * /auth - POST
  * /auth/validate -POST
  * /auth/refresh - POST
  */
 
-router.post('/auth', authController.authenticate.bind(authController))
+router.post('/auth', authInstance.authenticate.bind(authInstance))
 
-router.post('/auth/validate', authController.validate.bind(authController))
+router.post('/auth/validate', authInstance.validate.bind(authInstance))
 
-router.post('/auth/refresh', authController.refreshToken.bind(authController))
+router.post('/auth/refresh', authInstance.refreshToken.bind(authInstance))
 
 export default router
