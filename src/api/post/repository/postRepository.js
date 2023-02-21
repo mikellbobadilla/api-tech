@@ -10,7 +10,7 @@ class PostRepository {
         attributes: ['id', 'username', 'role']
       }
     })
-    console.log(posts)
+
     return posts
   }
 

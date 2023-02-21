@@ -28,7 +28,6 @@ export function userController(userService) {
   async function create(req = request, res = response) {
     try {
       const user = req.body
-      console.log(user)
       const newUser = await userService.create(user)
       return res
         .status(201)
@@ -41,7 +40,7 @@ export function userController(userService) {
         .status(400)
         .json({
           status: 'BAD REQUEST',
-          cause: err.message
+          message: err.message
         })
     }
   }
@@ -50,20 +49,28 @@ export function userController(userService) {
     try {
       const { username } = req.params
       const user = await userService.get(username)
+
+      return res
+        .status(200)
+        .json({
+          status: 'OK',
+          data: user
+        })
+
     } catch (err) {
       if (err instanceof UserExeption) {
         return res
           .status(404)
           .json({
             status: 'NOT FOUND',
-            cause: err.message
+            message: err.message
           })
       }
       return res
         .status(400)
         .json({
           status: 'BAD REQUEST',
-          cause: err.message
+          message: err.message
         })
     }
   }
@@ -72,8 +79,6 @@ export function userController(userService) {
     try {
       const { username } = req.params
       const user = req.body
-
-      const u = await userService.getUser(username)
 
       const data = await userService.update(username, user)
 
@@ -90,7 +95,7 @@ export function userController(userService) {
         .status(400)
         .json({
           status: 'BAD REQUEST',
-          cause: err.message
+          message: err.message
         })
     }
   }
@@ -111,7 +116,7 @@ export function userController(userService) {
         .status(400)
         .json({
           status: 'BAD REQUEST',
-          cause: err.message
+          message: err.message
         })
     }
   }

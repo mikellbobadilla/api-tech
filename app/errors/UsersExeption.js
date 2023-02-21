@@ -1,8 +1,11 @@
 class UserExeption extends Error {
-  constructor(message) {
-    super(message)
-
-    Object.setPrototypeOf(this, UserExeption.prototype)
+  constructor(message, options) {
+    super(message, options)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, UserExeption)
+    }
+    this.name = 'UserExeption'
+    this.date = new Date()
   }
 }
 

@@ -1,3 +1,4 @@
+'use strict'
 import { SignJWT, jwtVerify } from 'jose'
 import { JWT_EXPIRATION, JWT_SECRET } from '../config/env.js'
 const txtEncoder = new TextEncoder()
@@ -24,12 +25,12 @@ export function Jwt() {
  * @returns return information stored inside the token
  */
   async function verify(token, secret) {
-    const result = await jwtVerify(token, textToEncode.encode(secret))
+    const result = await jwtVerify(token, txtEncoder.encode(secret))
     return result
   }
 
-  return {
+  return Object.freeze({
     sign,
     verify
-  }
+  })
 }

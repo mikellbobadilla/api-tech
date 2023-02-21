@@ -34,10 +34,13 @@ export function UserDb({ User }) {
     return user
   }
 
-  async function remove(username) {
+  async function remove(identity) {
     const userDeleted = await User.destroy({
       where: {
-        username: username
+        [Op.or]: [
+          { username: identity },
+          { email: identity }
+        ]
       }
     })
     return userDeleted

@@ -44,7 +44,7 @@ export function UserService(usersDb) {
   }
 
   async function remove(identity) {
-    const data = await usersDb.delete(identity)
+    const data = await usersDb.remove(identity)
     return data
   }
 
