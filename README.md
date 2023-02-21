@@ -1,10 +1,3 @@
-## Validacion que tengo que implementar cuando recibo el password
- ```js
-is: {
-  args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/,
-  msg: 'Password must be contains letter, numbers and simbols'
-}
-```
 # Consulting Tech (API-REST)
 
 ## Reglas de la App

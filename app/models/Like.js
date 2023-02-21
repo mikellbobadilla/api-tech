@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
-import { sequelize } from '../config/sequelize.js'
+import sequelize from '../config/sequelize.js'
 
 // models
 import User from './User.js'
@@ -37,7 +37,5 @@ Like.init({
 
 User.belongsToMany(Post, { through: Like, foreignKey: 'id_user' })
 Post.belongsToMany(User, { through: Like, foreignKey: 'id_post' })
-
-// Like.sync({ alter: true })
 
 export default Like

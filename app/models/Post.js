@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
-import { sequelize } from '../config/sequelize.js'
+import sequelize from '../config/sequelize.js'
 
 // model
 import User from './User.js'
@@ -44,7 +44,5 @@ Post.init({
 
 Post.belongsTo(User, { foreignKey: 'id_user' })
 User.hasMany(Post, { foreignKey: 'id_user' })
-
-// Post.sync({ force: true })
 
 export default Post

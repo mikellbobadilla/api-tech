@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
-import { sequelize } from '../config/sequelize.js'
+import sequelize from '../config/sequelize.js'
 
 // models
 import User from './User.js'
@@ -52,5 +52,4 @@ Comment.belongsTo(Post, { foreignKey: 'id_post' })
 User.hasMany(Comment, { foreignKey: 'id_user' })
 Post.hasMany(Comment, { foreignKey: 'id_post' })
 
-// Comment.sync({ alter: true })
 export default Comment
