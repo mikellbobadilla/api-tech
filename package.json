@@ -7,7 +7,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon ./app/index.js",
-    "test": "cross-env NODE_ENV=test mocha --file ./app/test/setup.js ./app/test/**/*.test.js"
+    "test": "cross-env NODE_ENV=test mocha --file ./app/tests/setup.js ./app/tests/**/*.test.js"
   },
   "keywords": [],
   "author": "Mikell Bobadilla",

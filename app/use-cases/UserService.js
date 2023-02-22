@@ -1,9 +1,8 @@
 'use strict'
-import bcrypt from 'bcrypt'
 import { validatePassword } from '../helpers/index.js'
 import { UserExeption } from '../errors/index.js'
 
-export function UserService(usersDb) {
+export function UserService(usersDb, bcrypt) {
 
   async function findAll() {
     const users = await usersDb.findAll()

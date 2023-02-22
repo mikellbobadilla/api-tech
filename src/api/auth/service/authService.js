@@ -48,23 +48,7 @@ class AuthService {
     return token
   }
 
-  /**
-   * --------------------------------------------- Pseudocodigo ---------------------------------------------
-   * Proceso: Comprobar si el token venció -> Es una Función que recibe como parámetro el payload del token
-   *    DEFINIR diaActual COMO Date.now() -> Devuelve el dia actual como Universal Coordinated Time
-   *    DEFINIR diaVencimiento COMO Number -> El numero es en timestamp
-   *    DEFINIR data COMO objeto -> objeto   
-   * 
-   *    SI diaActual < diaVencimiento ENTONCES:
-   *      data.message = "Your toker is still valid!" 
-   *    SINO 
-   *      DEFINIR tokenCreado = crearToken(param) 
-   *      data.message = "Token updated"
-   *      data.toke = tokenCreado
-   *    FIN SI
-   * 
-   *    RETORNAR data
-   */
+
   async refreshToken(payload) {
     const now = Date.now() // Actual Day
     const expires = payload.iat + 172800000 //] 48 hours
