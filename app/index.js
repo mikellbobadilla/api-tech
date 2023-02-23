@@ -2,7 +2,6 @@
 import pino from 'pino'
 import httpServer from './config/server.js'
 import { PORT } from './config/env.js'
-import sequelize from './config/sequelize.js'
 const logger = pino()
 function main() {
   return httpServer.listen(PORT)

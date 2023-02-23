@@ -25,7 +25,7 @@ export function AuthService(usersDb, jwt, bcrypt) {
 
     const user = await usersDb.get(payload.username)
 
-    if (!user) throw new AuthExeption('Token Invalid') // May be AuthExeption
+    if (!user) throw new AuthExeption('Token Invalid')
 
     const now = Date.now() // Actual Day
     const expires = payload.iat + 172800000 //] 48 hours

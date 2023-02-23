@@ -18,7 +18,7 @@ router
   .post(userController.create)
 
 router
-  .route('/users/:username')
+  .route('/users/:userid')
   .get(userController.getOne)
   .put(userController.update)
   .delete(userController.remove)

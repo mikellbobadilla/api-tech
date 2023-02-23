@@ -27,7 +27,7 @@ export function userController(userService) {
 
   async function create(req = request, res = response) {
     try {
-      const user = req.body
+      const { user } = req.body
       const newUser = await userService.create(user)
       return res
         .status(201)
@@ -47,8 +47,8 @@ export function userController(userService) {
 
   async function getOne(req = request, res = response) {
     try {
-      const { username } = req.params
-      const user = await userService.get(username)
+      const { userid } = req.params
+      const user = await userService.get(userid)
 
       return res
         .status(200)
@@ -77,10 +77,18 @@ export function userController(userService) {
 
   async function update(req = request, res = response) {
     try {
-      const { username } = req.params
-      const user = req.body
+      const { userid } = req.params
+      const { user } = req.body
+      const { payload } = req.body
 
-      const data = await userService.update(username, user)
+      const u = await userService.get(userid)
+
+      const isAllow = (payload.username === u.username)
+      if (!isAllow) {
+        throw new UserExeption('Request not allowed')
+      }
+
+      const data = await userService.update(userid, user)
 
       return res
         .status(200)
@@ -102,8 +110,17 @@ export function userController(userService) {
 
   async function remove(req = request, res = response) {
     try {
-      const { username } = req.params
-      const data = await userService.remove(username)
+      const { userid } = req.params
+      const { payload } = req.body
+
+      const u = await userService.get(userid)
+
+      const isAllow = (payload.username === u.username)
+      if (!isAllow) {
+        throw new UserExeption('Request not allowed')
+      }
+
+      const data = await userService.remove(userid)
       return res
         .status(200)
         .json({

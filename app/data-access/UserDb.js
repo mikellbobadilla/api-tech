@@ -13,10 +13,13 @@ export function UserDb({ User }) {
     return newUser
   }
 
-  async function update(username, user) {
+  async function update(identity, user) {
     const userUpdated = await User.update({ ...user }, {
       where: {
-        username: username
+        [Op.or]: [
+          { username: identity },
+          { email: identity }
+        ]
       }
     })
     return userUpdated
