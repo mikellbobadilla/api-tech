@@ -36,6 +36,9 @@ export function userController(userService) {
           data: newUser
         })
     } catch (err) {
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        err.message = 'This user already exists'
+      }
       return res
         .status(400)
         .json({

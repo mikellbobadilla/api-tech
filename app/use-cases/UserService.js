@@ -38,6 +38,13 @@ export function UserService(usersDb, bcrypt) {
   }
 
   async function update(identity, user) {
+
+    const passIsValid = validatePassword(user.password)
+
+    if (!passIsValid) {
+      throw new UserExeption('Cant update user because: password only be 8-20 characters, must be contains numbers and symbols')
+    }
+
     const data = await usersDb.update(identity, user)
     return data
   }
