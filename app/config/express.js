@@ -3,7 +3,7 @@ import logger from 'morgan'
 import routes from '../routes/index.js'
 const app = express()
 
-app.use(logger('combined'))
+app.use(logger('dev'))
 app.use(express.json())
 app.use('/api', routes)
 app.use('*', (_, res) => {
